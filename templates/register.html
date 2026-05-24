@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Register - Food Ordering System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 550px;
+            max-width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .required {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 5px rgba(255,107,53,0.3);
+        }
+        
+        .small-text {
+            display: block;
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.4);
+        }
+        
+        .flash {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+        
+        .restaurant-fields {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .food-icon {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .info-text {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 15px;
+        }
+        
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 20px;
+                margin: 0;
+            }
+            
+            .input-group input, 
+            .input-group select {
+                font-size: 16px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .food-icon {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="food-icon">🍕📝</div>
+        <h2>Create Account</h2>
+        <div class="subtitle">Join Food Ordering System</div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="input-group">
+                <label>Username <span class="required">*</span></label>
+                <input type="text" name="username" placeholder="Choose a username" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Password <span class="required">*</span></label>
+                <input type="password" name="password" placeholder="Create a password" required>
+                <small style="color: #666; font-size: 11px; display: block; margin-top: 5px;">(Minimum 6 characters)</small>
+            </div>
+            
+            <div class="input-group">
+                <label>Security Question <span class="required">*</span></label>
+                <select name="security_question" required>
+                    <option value="">Select a security question</option>
+                    <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                    <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                    <option value="What is your favorite food?">What is your favorite food?</option>
+                    <option value="What city were you born in?">What city were you born in?</option>
+                    <option value="What is your favorite color?">What is your favorite color?</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Security Answer <span class="required">*</span></label>
+                <input type="text" name="security_answer" placeholder="Your answer" required>
+                <span class="small-text">(Remember this answer - you'll need it to reset password/username)</span>
+            </div>
+            
+            <div class="input-group">
+                <label>Account Type <span class="required">*</span></label>
+                <select name="user_type" id="user_type" onchange="toggleRestaurant()" required>
+                    <option value="customer">Customer</option>
+                    <option value="restaurant_admin">Restaurant Owner</option>
+                </select>
+            </div>
+            
+            <div id="restaurant_fields" class="restaurant-fields">
+                <div class="input-group">
+                    <label>Restaurant Name <span class="required">*</span></label>
+                    <input type="text" name="restaurant_name" placeholder="Your restaurant name">
+                </div>
+                
+                <div class="input-group">
+                    <label>Address <span class="required">*</span></label>
+                    <input type="text" name="address" placeholder="Restaurant address">
+                </div>
+                
+                <div class="input-group">
+    <label>Phone Number <span class="required">*</span></label>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <select name="phone_prefix" id="phone_prefix" style="width: auto; min-width: 140px; padding: 12px;" required>
+            <optgroup label="🇪🇺 Europe">
+                <option value="+44">🇬🇧 +44 (United Kingdom)</option>
+                <option value="+40">🇷🇴 +40 (Romania)</option>
+                <option value="+49">🇩🇪 +49 (Germany)</option>
+                <option value="+33">🇫🇷 +33 (France)</option>
+                <option value="+39">🇮🇹 +39 (Italy)</option>
+                <option value="+34">🇪🇸 +34 (Spain)</option>
+                <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                <option value="+32">🇧🇪 +32 (Belgium)</option>
+                <option value="+41">🇨🇭 +41 (Switzerland)</option>
+                <option value="+43">🇦🇹 +43 (Austria)</option>
+                <option value="+46">🇸🇪 +46 (Sweden)</option>
+                <option value="+47">🇳🇴 +47 (Norway)</option>
+                <option value="+45">🇩🇰 +45 (Denmark)</option>
+                <option value="+358">🇫🇮 +358 (Finland)</option>
+                <option value="+48">🇵🇱 +48 (Poland)</option>
+                <option value="+420">🇨🇿 +420 (Czech Republic)</option>
+                <option value="+36">🇭🇺 +36 (Hungary)</option>
+                <option value="+30">🇬🇷 +30 (Greece)</option>
+                <option value="+351">🇵🇹 +351 (Portugal)</option>
+                <option value="+353">🇮🇪 +353 (Ireland)</option>
+                <option value="+7">🇷🇺 +7 (Russia)</option>
+                <option value="+380">🇺🇦 +380 (Ukraine)</option>
+            </optgroup>
+            <optgroup label="🌍 Asia">
+                <option value="+92" selected>🇵🇰 +92 (Pakistan)</option>
+                <option value="+91">🇮🇳 +91 (India)</option>
+                <option value="+86">🇨🇳 +86 (China)</option>
+                <option value="+81">🇯🇵 +81 (Japan)</option>
+                <option value="+82">🇰🇷 +82 (South Korea)</option>
+                <option value="+66">🇹🇭 +66 (Thailand)</option>
+                <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                <option value="+63">🇵🇭 +63 (Philippines)</option>
+                <option value="+84">🇻🇳 +84 (Vietnam)</option>
+                <option value="+90">🇹🇷 +90 (Turkey)</option>
+                <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
+                <option value="+880">🇧🇩 +880 (Bangladesh)</option>
+                <option value="+977">🇳🇵 +977 (Nepal)</option>
+                <option value="+856">🇱🇦 +856 (Laos)</option>
+                <option value="+855">🇰🇭 +855 (Cambodia)</option>
+                <option value="+95">🇲🇲 +95 (Myanmar)</option>
+                <option value="+98">🇮🇷 +98 (Iran)</option>
+                <option value="+964">🇮🇶 +964 (Iraq)</option>
+                <option value="+962">🇯🇴 +962 (Jordan)</option>
+                <option value="+961">🇱🇧 +961 (Lebanon)</option>
+                <option value="+965">🇰🇼 +965 (Kuwait)</option>
+                <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+                <option value="+971">🇦🇪 +971 (UAE)</option>
+                <option value="+968">🇴🇲 +968 (Oman)</option>
+                <option value="+974">🇶🇦 +974 (Qatar)</option>
+                <option value="+973">🇧🇭 +973 (Bahrain)</option>
+            </optgroup>
+            <optgroup label="🌎 Americas">
+                <option value="+1">🇺🇸 +1 (USA/Canada)</option>
+                <option value="+55">🇧🇷 +55 (Brazil)</option>
+                <option value="+52">🇲🇽 +52 (Mexico)</option>
+                <option value="+54">🇦🇷 +54 (Argentina)</option>
+                <option value="+56">🇨🇱 +56 (Chile)</option>
+                <option value="+57">🇨🇴 +57 (Colombia)</option>
+                <option value="+51">🇵🇪 +51 (Peru)</option>
+                <option value="+58">🇻🇪 +58 (Venezuela)</option>
+            </optgroup>
+            <optgroup label="🇦🇺 Oceania">
+                <option value="+61">🇦🇺 +61 (Australia)</option>
+                <option value="+64">🇳🇿 +64 (New Zealand)</option>
+            </optgroup>
+            <optgroup label="🌍 Africa">
+                <option value="+27">🇿🇦 +27 (South Africa)</option>
+                <option value="+20">🇪🇬 +20 (Egypt)</option>
+                <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                <option value="+254">🇰🇪 +254 (Kenya)</option>
+                <option value="+233">🇬🇭 +233 (Ghana)</option>
+                <option value="+212">🇲🇦 +212 (Morocco)</option>
+                <option value="+216">🇹🇳 +216 (Tunisia)</option>
+                <option value="+213">🇩🇿 +213 (Algeria)</option>
+            </optgroup>
+        </select>
+        <input type="tel" 
+               name="phone_number" 
+               placeholder="Phone number (without country code)" 
+               pattern="[0-9]{7,15}" 
+               maxlength="15"
+               title="Please enter 7-15 digits (e.g., 712345678)" 
+               style="flex: 1;" 
+               required>
+    </div>
+    <small style="color: #666; font-size: 11px; display: block; margin-top: 5px;">
+        🌍 Select country code and enter phone number without the code
+    </small>
+</div>
+                
+                <div class="input-group">
+                    <label>Cuisine Type</label>
+                    <select name="cuisine">
+                        <option value="">Select Cuisine</option>
+                        <option value="Pakistani">🇵🇰 Pakistani</option>
+                        <option value="Chinese">🥡 Chinese</option>
+                        <option value="Italian">🍝 Italian</option>
+                        <option value="Fast Food">🍔 Fast Food</option>
+                        <option value="BBQ">🔥 BBQ</option>
+                        <option value="Seafood">🦞 Seafood</option>
+                        <option value="Vegetarian">🥗 Vegetarian</option>
+                        <option value="Desserts">🍰 Desserts</option>
+                        <option value="Beverages">🥤 Beverages</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>Opening Hours</label>
+                    <input type="text" name="opening_hours" placeholder="e.g., 9:00 AM - 10:00 PM">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Register</button>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+        
+        <hr>
+        
+        <div class="info-text">
+            🔒 Your information is safe with us
+        </div>
+    </div>
+
+    <script>
+    function toggleRestaurant() {
+        var userType = document.getElementById('user_type').value;
+        var fields = document.getElementById('restaurant_fields');
+        var inputs = fields.querySelectorAll('input, select');
+        
+        if (userType === 'restaurant_admin') {
+            fields.style.display = 'block';
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute('data-required')) {
+                    inputs[i].setAttribute('required', 'required');
+                }
+            }
+        } else {
+            fields.style.display = 'none';
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].removeAttribute('required');
+            }
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        var restaurantInputs = document.querySelectorAll('#restaurant_fields input, #restaurant_fields select');
+        for (var i = 0; i < restaurantInputs.length; i++) {
+            if (restaurantInputs[i].hasAttribute('required')) {
+                restaurantInputs[i].setAttribute('data-required', 'true');
+                restaurantInputs[i].removeAttribute('required');
+            }
+        }
+        
+        // ========== PHONE PREFIX EXAMPLES WITH ROMANIA ==========
+        var prefixSelect = document.getElementById('phone_prefix');
+        var phoneInput = document.querySelector('input[name="phone_number"]');
+        
+        if (prefixSelect && phoneInput) {
+            // Examples for each country code
+            var examples = {
+                // Europe
+                '+44': '7123456789',     // UK
+                '+40': '712345678',      // ROMANIA ← ADDED
+                '+49': '1712345678',     // Germany
+                '+33': '612345678',      // France
+                '+39': '3123456789',     // Italy
+                '+34': '612345678',      // Spain
+                '+31': '612345678',      // Netherlands
+                '+32': '471234567',      // Belgium
+                '+41': '781234567',      // Switzerland
+                '+43': '664123456',      // Austria
+                '+46': '701234567',      // Sweden
+                '+47': '41234567',       // Norway
+                '+45': '30123456',       // Denmark
+                '+358': '401234567',     // Finland
+                '+48': '501234567',      // Poland
+                '+420': '601123456',     // Czech Republic
+                '+36': '201234567',      // Hungary
+                '+30': '6912345678',     // Greece
+                '+351': '912345678',     // Portugal
+                '+353': '851234567',     // Ireland
+                '+7': '9123456789',      // Russia
+                '+380': '501234567',     // Ukraine
+                
+                // Asia
+                '+92': '3001234567',     // Pakistan
+                '+91': '9876543210',     // India
+                '+86': '13812345678',    // China
+                '+81': '9012345678',     // Japan
+                '+82': '1012345678',     // South Korea
+                '+66': '812345678',      // Thailand
+                '+60': '123456789',      // Malaysia
+                '+62': '8123456789',     // Indonesia
+                '+63': '9123456789',     // Philippines
+                '+84': '901234567',      // Vietnam
+                '+90': '5312345678',     // Turkey
+                '+94': '712345678',      // Sri Lanka
+                '+880': '1712345678',    // Bangladesh
+                '+977': '9812345678',    // Nepal
+                '+856': '2012345678',    // Laos
+                '+855': '12123456',      // Cambodia
+                '+95': '92123456',       // Myanmar
+                '+98': '9123456789',     // Iran
+                '+964': '7712345678',    // Iraq
+                '+962': '791234567',     // Jordan
+                '+961': '71123456',      // Lebanon
+                '+965': '51234567',      // Kuwait
+                '+966': '512345678',     // Saudi Arabia
+                '+971': '501234567',     // UAE
+                '+968': '92123456',      // Oman
+                '+974': '33123456',      // Qatar
+                '+973': '36123456',      // Bahrain
+                
+                // Americas
+                '+1': '5551234567',      // USA/Canada
+                '+55': '11987654321',    // Brazil
+                '+52': '5512345678',     // Mexico
+                '+54': '91123456789',    // Argentina
+                '+56': '912345678',      // Chile
+                '+57': '3123456789',     // Colombia
+                '+51': '912345678',      // Peru
+                '+58': '4123456789',     // Venezuela
+                
+                // Oceania
+                '+61': '412345678',      // Australia
+                '+64': '211234567',      // New Zealand
+                
+                // Africa
+                '+27': '712345678',      // South Africa
+                '+20': '1012345678',     // Egypt
+                '+234': '8012345678',    // Nigeria
+                '+254': '712345678',     // Kenya
+                '+233': '201234567',     // Ghana
+                '+212': '612345678',     // Morocco
+                '+216': '20123456',      // Tunisia
+                '+213': '551234567'      // Algeria
+            };
+            
+            // Update placeholder when country changes
+            prefixSelect.addEventListener('change', function() {
+                var selectedValue = prefixSelect.value;
+                var example = examples[selectedValue] || '712345678';
+                phoneInput.placeholder = 'e.g., ' + example;
+            });
+            
+            // Trigger initial placeholder
+            var initialExample = examples[prefixSelect.value] || '712345678';
+            phoneInput.placeholder = 'e.g., ' + initialExample;
+        }
+    });
+</script>
+</body>
+</html>

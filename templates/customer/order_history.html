@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Food Ordering System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+            
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .navbar {
+            background: #ff6b35;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            font-size: 1.5em;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .order-header {
+            background: #ff6b35;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .order-header:hover {
+            background: #e55a2b;
+        }
+        
+        .order-number {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .order-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-pending {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .status-preparing {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .status-delivered {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status-cancelled {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .order-details {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .order-items {
+            margin-top: 10px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-name {
+            font-weight: 500;
+        }
+        
+        .item-price {
+            color: #ff6b35;
+        }
+        
+        .order-total {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px solid #eee;
+            text-align: right;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .delivery-address {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+        }
+        
+        .empty-orders {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 15px;
+        }
+        
+        .btn {
+            background: #ff6b35;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        /* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .container {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .navbar h1 {
+        margin-bottom: 10px;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .restaurant-grid, .stats {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .menu-item, .cart-item {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🍕 Food Ordering System</h1>
+        <div class="nav-links">
+            <a href="/customer/dashboard">Dashboard</a>
+            <a href="/restaurants">Restaurants</a>
+            <a href="/cart">Cart</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <a href="/customer/dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <h2>📋 Order History </h2>
+        
+        {% if orders %}
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header" onclick="toggleOrder({{ order.id }})">
+                    <div>
+                        <span class="order-number">Order #{{ order.order_number }}</span>
+                        <span style="margin-left: 15px; font-size: 14px;">{{ order.order_time.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                    </div>
+                    <div>
+                        <span class="order-status status-{{ order.status }}">{{ order.status }}</span>
+                        <span class="toggle-icon" id="toggle-icon-{{ order.id }}">▼</span>
+                    </div>
+                </div>
+                
+                <div id="order-details-{{ order.id }}" class="order-details" style="display: none;">
+                    <div class="order-items">
+                        <strong>Items Ordered:</strong>
+                        {% if order.items %}
+                            {% for item in order.items %}
+                            <div class="order-item">
+                                <span class="item-name">{{ item.menu_item.name }} × {{ item.quantity }}</span>
+                                <span class="item-price">Rs {{ "%.2f"|format(item.price_at_time * item.quantity) }}</span>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="order-item">
+                                <span>No items found for this order.</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="delivery-address">
+                        📍 <strong>Delivery Address:</strong> {{ order.delivery_address or 'No address provided' }}
+                    </div>
+                    
+                    <div class="order-total">
+                        Total: Rs {{ "%.2f"|format(order.total_amount) }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-orders">
+                <h3>No orders yet</h3>
+                <p>You haven't placed any orders. Start ordering some delicious food!</p>
+                <a href="/restaurants" class="btn">Browse Restaurants</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleOrder(orderId) {
+            var detailsDiv = document.getElementById('order-details-' + orderId);
+            var icon = document.getElementById('toggle-icon-' + orderId);
+            
+            if (detailsDiv.style.display === 'none' || detailsDiv.style.display === '') {
+                detailsDiv.style.display = 'block';
+                icon.innerHTML = '▲';
+            } else {
+                detailsDiv.style.display = 'none';
+                icon.innerHTML = '▼';
+            }
+        }
+    </script>
+</body>
+</html>

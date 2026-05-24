@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Identity - Food Ordering System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 450px;
+            max-width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .security-question {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff6b35;
+            font-size: 18px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #e55a2b;
+        }
+        
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .food-icon {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        /* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .container {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .navbar h1 {
+        margin-bottom: 10px;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .restaurant-grid, .stats {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .menu-item, .cart-item {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="food-icon">🔐❓</div>
+        <h2>Verify Your Identity</h2>
+        <div class="subtitle">Answer your security question to recover username</div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="security-question">
+            {{ security_question }}
+        </div>
+        
+        <form method="POST" action="/verify-username-security">
+            <input type="hidden" name="email" value="{{ email }}">
+            <div class="input-group">
+                <label>Your Answer</label>
+                <input type="text" name="answer" placeholder="Enter your security answer" required autofocus>
+            </div>
+            <button type="submit" class="btn">Verify & Get Username</button>
+        </form>
+        
+        <div class="back-link">
+            <a href="/login">← Back to Login</a>
+        </div>
+    </div>
+</body>
+</html>

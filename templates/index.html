@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Food Ordering System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .food-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            color: #ff6b35;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 10px;
+    background: transparent;
+    color: #ff6b35;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #ff6b35;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #ff6b35;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,107,53,0.4);
+}
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+        }
+        
+        .btn-outline:hover {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .features {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .features span {
+            display: inline-block;
+            margin: 5px 10px;
+        }
+        
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .food-icon {
+                font-size: 45px;
+            }
+            
+            .tagline {
+                font-size: 1em;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .features span {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="food-icon">🍕🍔🍟</div>
+        <h1>Food Ordering System</h1>
+        <div class="tagline">with AI Demand Prediction</div>
+        <p>Order food from your favorite restaurants<br>and let AI predict what customers want!</p>
+        
+        <div style="margin-top: 30px;">
+            <a href="/login" class="btn">🔐 Login</a>
+            <a href="/register" class="btn">📝 Register</a>
+        </div>
+        
+        <div class="features">
+            <span>✨ Smart Ordering</span>
+            <span>🤖 AI Predictions</span>
+            <span>📊 Analytics</span>
+            <span>🚚 Fast Delivery</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant.name }} - Menu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .navbar {
+            background: #ff6b35;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .restaurant-header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .restaurant-header h1 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .item-price {
+            color: #ff6b35;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .item-description {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .item-category {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        
+        .cart-controls {
+            min-width: 150px;
+            text-align: right;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #ff6b35;
+            color: white;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #e55a2b;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .cart-btn {
+            background: #28a745;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        
+        .cart-btn:hover {
+            background: #218838;
+        }
+        
+        .flash {
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .empty-menu {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+        }
+        /* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .container {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .navbar h1 {
+        margin-bottom: 10px;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .restaurant-grid, .stats {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .menu-item, .cart-item {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🍕 Food Ordering System</h1>
+        <div class="nav-links">
+            <a href="/restaurants">Restaurants</a>
+            <a href="/cart">🛒 Cart</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <a href="/restaurants" class="back-link">← Back to Restaurants</a>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="restaurant-header">
+            <h1>{{ restaurant.name }}</h1>
+            <p>📍 {{ restaurant.address or 'Address not available' }}</p>
+            <p>📞 {{ restaurant.phone or 'Phone not available' }}</p>
+        </div>
+        
+        <h2>📋 Menu</h2>
+        
+        {% if menu_items %}
+            {% for item in menu_items %}
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">{{ item.name }}</div>
+                    <div class="item-price">${{ "%.2f"|format(item.price) }}</div>
+                    {% if item.description %}
+                        <div class="item-description">{{ item.description }}</div>
+                    {% endif %}
+                    {% if item.category %}
+                        <div class="item-category">{{ item.category }}</div>
+                    {% endif %}
+                </div>
+                <div class="cart-controls">
+                    <form method="POST" action="/add-to-cart/{{ item.id }}">
+                        <input type="number" name="quantity" value="1" min="1" max="10" class="quantity-input">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="/cart" class="btn cart-btn">🛒 View Cart & Checkout</a>
+            </div>
+        {% else %}
+            <div class="empty-menu">
+                <h3>No menu items available</h3>
+                <p>This restaurant hasn't added any items yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
