@@ -86,43 +86,40 @@ Version Control:  Git / GitHub
 📁 Project Structure
 --------------------
 
-food-ordering-system/
-│
-├── app.py
-├── requirements.txt
-├── .env
-│
-├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── forgot_password.html
-│   ├── forgot_username.html
-│   ├── reset_password.html
-│   ├── verify_security.html
-│   ├── verify_username_security.html
-│   │
-│   ├── customer/
-│   │   ├── dashboard.html
-│   │   ├── restaurants.html
-│   │   ├── menu.html
-│   │   ├── cart.html
-│   │   └── order_history.html
-│   │
-│   └── restaurant/
-│       ├── admin_dashboard.html
-│       ├── demand_prediction.html
-│       └── edit_restaurant.html
-│
-├── static/
-│   ├── css/
-│   │   └── style.css
-│   └── js/
-│       └── main.js
-│
-├── backups/
-│
-└── venv/
+Folder/File	Description
+Root Files	
+app.py	Main Flask application
+requirements.txt	Python dependencies
+.env	Environment variables
+	
+templates/	HTML templates
+templates/index.html	Homepage
+templates/login.html	Login page
+templates/register.html	Registration page
+templates/forgot_password.html	Forgot password
+templates/forgot_username.html	Forgot username
+templates/reset_password.html	Reset password
+templates/verify_security.html	Security question verify
+templates/verify_username_security.html	Username verify
+	
+templates/customer/	Customer pages
+dashboard.html	Customer dashboard
+restaurants.html	Browse restaurants
+menu.html	View menu
+cart.html	Shopping cart
+order_history.html	Order history
+	
+templates/restaurant/	Admin pages
+admin_dashboard.html	Admin dashboard
+demand_prediction.html	AI predictions
+edit_restaurant.html	Edit restaurant
+	
+static/	Static files
+static/css/style.css	CSS styles
+static/js/main.js	JavaScript
+	
+backups/	Database backups
+venv/	Virtual environment
 
 
 🗄️ Database Schema
