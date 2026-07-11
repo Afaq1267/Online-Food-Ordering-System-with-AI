@@ -66,10 +66,11 @@ Version Control:  Git / GitHub
 ---------------
 
 1. Clone the repository
-   git clone https://github.com/Afaq1267/Online-Food-Ordering-System-with-AI.git 
+   git clone https://github.com/Afaq1267/Online-Food-Ordering-System-with-AI.git
+   
    cd Online-Food-Ordering-System-with-AI
 
-2. Create and activate virtual environment
+3. Create and activate virtual environment
    Windows:   python -m venv venv && venv\Scripts\activate
    
    Mac/Linux: python3 -m venv venv && source venv/bin/activate
