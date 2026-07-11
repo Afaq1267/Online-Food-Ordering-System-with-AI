@@ -83,8 +83,8 @@ Prerequisites:
 
 Step 1: Clone the Repository
 -----------------------------
-git clone https://github.com/yourusername/food-ordering-system.git
-cd food-ordering-system
+git clone https://github.com/Afaq1267/Online-Food-Ordering-System-with-AI.git
+cd Online-Food-Ordering-System-with-AI
 
 Step 2: Create and Activate Virtual Environment
 -----------------------------------------------
