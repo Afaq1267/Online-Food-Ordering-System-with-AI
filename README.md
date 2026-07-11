@@ -191,21 +191,30 @@ Process:
 🔒 Security Features
 -------------------
 
-• Password Hashing       - Werkzeug generate_password_hash()
-• CSRF Protection        - Flask-WTF
-• Session Management     - Flask-Login
-• SQL Injection Prevent  - SQLAlchemy ORM
-• XSS Prevention         - Flask escaping
-• Role-based Access      - @login_required decorator
+- Password Hashing       - Werkzeug generate_password_hash()
+
+- CSRF Protection        - Flask-WTF
+
+- Session Management     - Flask-Login
+
+- SQL Injection Prevent  - SQLAlchemy ORM
+
+- XSS Prevention         - Flask escaping
+
+- Role-based Access      - @login_required decorator
 
 
 📱 Mobile Responsiveness
 ------------------------
 
 Works on:
-• Mobile   - 320px to 480px
-• Tablet   - 768px to 1024px
-• Desktop  - 1024px and above
+
+- Mobile   - 320px to 480px
+
+- Tablet   - 768px to 1024px
+
+- Desktop  - 1024px and above
+
 
 
 🧪 Test Summary
