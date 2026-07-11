@@ -8,42 +8,43 @@ A full-featured web-based food ordering system with integrated machine learning 
 -----------
 
 User Authentication:
-• Secure user registration and login system
-• Role-based access (Customer / Restaurant Admin)
-• Password hashing with Werkzeug
-• Forgot Password & Forgot Username with security questions
-• CSRF protection on all forms
+- Secure user registration and login system
+- Role-based access (Customer / Restaurant Admin)
+- Password hashing with Werkzeug
+- Forgot Password & Forgot Username with security questions
+- CSRF protection on all forms
 
 Customer Features:
-• Browse restaurants and food items
-• Add items to cart with quantity selection
-• Remove items from cart
-• Place orders with delivery address
-• View order history with expandable order details
+- Browse restaurants and food items
+- Add items to cart with quantity selection
+- Remove items from cart
+- Place orders with delivery address
+- View order history with expandable order details
 
 Restaurant Admin Features:
-• Add, edit, and delete menu items
-• Update order status (Pending → Preparing → Delivered)
-• View all incoming orders
-• Edit restaurant details
-• Export orders to CSV
+- Add, edit, and delete menu items
+- Update order status (Pending → Preparing → Delivered)
+- View all incoming orders
+- Edit restaurant details (name, address, phone, cuisine, opening hours)
+- Export orders to CSV
 
 AI Demand Prediction:
-• Train machine learning model using historical order data
-• Predict future demand for specific food items (next 7 days)
-• Identify peak ordering hours
-• Display predictions with inventory recommendations
-• Business insights dashboard
+- Train machine learning model using historical order data
+- Predict future demand for specific food items (next 7 days)
+- Identify peak ordering hours
+- Display predictions with inventory recommendations
+- Business insights dashboard
 
 Analytics & Reporting:
-• Most ordered items visualization
-• Peak order times detection
-• Daily and monthly order trends
-• CSV export for order data
+- Most ordered items visualization
+- Peak order times detection
+- Daily and monthly order trends
+- CSV export for order data
 
 Mobile Responsive:
-• Fully responsive design
-• Optimized for all screen sizes (mobile, tablet, desktop)
+- Fully responsive design
+- Optimized for all screen sizes (mobile, tablet, desktop)
+- Touch-friendly buttons and forms
 
 
 🛠️ Technologies Used
