@@ -249,7 +249,7 @@ TOTAL: 14/14 ✅ (100%)
 
 Project Lead & Developer : Afaq Haider
 
-QA Tester                : Loredana
+QA Tester                : Loredana (https://github.com/10r13n)
 
 
 📄 License
@@ -263,7 +263,7 @@ This project is developed for educational purposes as a university project. All 
 
 Email  : afaqhaider7861@gmail.com
 
-GitHub : Afaq1267
+GitHub : Afaq1267 / 10r13n
 
 
 📊 Project Status
