@@ -86,59 +86,94 @@ Version Control:  Git / GitHub
 📁 Project Structure
 --------------------
 
-Folder/File	Description
-Root Files	
-app.py	Main Flask application
-requirements.txt	Python dependencies
-.env	Environment variables
-	
-templates/	HTML templates
-templates/index.html	Homepage
-templates/login.html	Login page
-templates/register.html	Registration page
-templates/forgot_password.html	Forgot password
-templates/forgot_username.html	Forgot username
-templates/reset_password.html	Reset password
-templates/verify_security.html	Security question verify
-templates/verify_username_security.html	Username verify
-	
-templates/customer/	Customer pages
-dashboard.html	Customer dashboard
-restaurants.html	Browse restaurants
-menu.html	View menu
-cart.html	Shopping cart
-order_history.html	Order history
-	
-templates/restaurant/	Admin pages
-admin_dashboard.html	Admin dashboard
-demand_prediction.html	AI predictions
-edit_restaurant.html	Edit restaurant
-	
-static/	Static files
-static/css/style.css	CSS styles
-static/js/main.js	JavaScript
-	
-backups/	Database backups
-venv/	Virtual environment
+Root Files:
 
+    app.py - Main Flask application
+
+    requirements.txt - Python dependencies
+
+    .env - Environment variables
+
+templates/ (HTML Pages)
+
+    index.html - Homepage
+
+    login.html - Login page
+
+    register.html - Registration page
+
+    forgot_password.html - Forgot password
+
+    forgot_username.html - Forgot username
+
+    reset_password.html - Reset password
+
+    verify_security.html - Security question verify
+
+    verify_username_security.html - Username verify
+
+templates/customer/ (Customer Pages)
+
+    dashboard.html - Customer dashboard
+
+    restaurants.html - Browse restaurants
+
+    menu.html - View menu
+
+    cart.html - Shopping cart
+
+    order_history.html - Order history
+
+templates/restaurant/ (Admin Pages)
+
+    admin_dashboard.html - Admin dashboard
+
+    demand_prediction.html - AI predictions
+
+    edit_restaurant.html - Edit restaurant
+
+static/ (Static Files)
+
+    css/style.css - CSS styles
+
+    js/main.js - JavaScript
+
+Other Folders:
+
+    backups/ - Database backups
+
+    venv/ - Virtual environment
+
+	
 
 🗄️ Database Schema
 ------------------
 
 Tables:
-• users           - User accounts (customers and restaurant admins)
-• restaurants     - Restaurant information
-• menu_items      - Food items for each restaurant
-• orders          - Customer orders
-• order_items     - Items within each order
+  users           - User accounts (customers and restaurant admins)
+  
+  restaurants     - Restaurant information
 
-Relationships:
-users (1) ----< (M) orders
-users (1) ---- (1) restaurants
-restaurants (1) ----< (M) menu_items
-restaurants (1) ----< (M) orders
-orders (1) ----< (M) order_items
-menu_items (1) ----< (M) order_items
+  menu_items      - Food items for each restaurant
+  
+  orders          - Customer orders
+  
+  order_items     - Items within each order
+  
+-----
+
+-Relationships:
+  -users (1) ----< (M) orders
+  
+  -users (1) ---- (1) restaurants
+  
+  -restaurants (1) ----< (M) menu_items
+  
+  -restaurants (1) ----< (M) orders
+  
+  -orders (1) ----< (M) order_items
+  
+  -menu_items (1) ----< (M) order_items
 
 
 🤖 AI Demand Prediction
@@ -177,12 +212,19 @@ Works on:
 ---------------
 
 Registration    : 3/3 ✅ (100%)
+
 Login           : 2/2 ✅ (100%)
+
 Cart            : 2/2 ✅ (100%)
+
 Order           : 2/2 ✅ (100%)
+
 Menu (Admin)    : 1/1 ✅ (100%)
+
 AI Prediction   : 2/2 ✅ (100%)
+
 Forgot Password : 1/1 ✅ (100%)
+
 Mobile          : 1/1 ✅ (100%)
 
 TOTAL: 14/14 ✅ (100%)
@@ -192,6 +234,7 @@ TOTAL: 14/14 ✅ (100%)
 ---------------
 
 Project Lead & Developer : Afaq Haider
+
 QA Tester                : Loredana
 
 
@@ -205,6 +248,7 @@ This project is developed for educational purposes as a university project. All 
 ----------
 
 Email  : afaqhaider7861@gmail.com
+
 GitHub : Afaq1267
 
 
@@ -212,7 +256,9 @@ GitHub : Afaq1267
 -----------------
 
 Status        : ✅ Complete
+
 Version       : 1.0
+
 Last Updated  : July 2026
 
 
