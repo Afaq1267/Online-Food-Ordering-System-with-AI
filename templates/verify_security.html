@@ -154,6 +154,7 @@
         </div>
         
         <form method="POST" action="/verify-security">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="hidden" name="username" value="{{ username }}">
             <div class="input-group">
                 <label>Your Answer</label>

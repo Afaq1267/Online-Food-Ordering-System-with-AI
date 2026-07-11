@@ -250,7 +250,7 @@
         {% if orders %}
             {% for order in orders %}
             <div class="order-card">
-                <div class="order-header" onclick="toggleOrder({{ order.id }})">
+                <div class="order-header" data-order-id="{{ order.id }}">
                     <div>
                         <span class="order-number">Order #{{ order.order_number }}</span>
                         <span style="margin-left: 15px; font-size: 14px;">{{ order.order_time.strftime('%B %d, %Y at %I:%M %p') }}</span>

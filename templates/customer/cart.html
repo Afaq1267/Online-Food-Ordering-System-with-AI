@@ -244,6 +244,7 @@
                 <div class="total">Total: ${{ "%.2f"|format(total) }}</div>
                 
                 <form method="POST" action="/checkout">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <label for="delivery_address"><strong>Delivery Address:</strong></label>
                     <input type="text" name="delivery_address" class="address-input" placeholder="Enter your full delivery address" required>
                     <button type="submit" class="btn">Place Order ✅</button>

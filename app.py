@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from datetime import datetime, timedelta
 import pandas as pd
@@ -21,6 +22,10 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+from flask_wtf.csrf import CSRFProtect
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 # ==================== DATABASE MODELS ====================
 
@@ -163,7 +168,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         
         # Check credentials
-        if user and user.password == password:
+        if user and check_password_hash(user.password, password):
             # Successful login
             login_user(user)
             session['user_id'] = user.id
@@ -190,7 +195,7 @@ def register():
         security_question = request.form.get('security_question')
         security_answer = request.form.get('security_answer')
         
-        # PASSWORD VALIDATION - ADD THIS BLOCK
+        # Password validation
         if len(password) < 6:
             flash('❌ Password must be at least 6 characters long!', 'error')
             return render_template('register.html')
@@ -198,13 +203,13 @@ def register():
         # Check if username exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            flash('Username already exists! Please choose a different username.', 'error')
+            flash('Username already exists!', 'error')
             return render_template('register.html')
         
         # Check if email exists
         existing_email = User.query.filter_by(email=email).first()
         if existing_email:
-            flash('Email already registered! Please use a different email.', 'error')
+            flash('Email already registered!', 'error')
             return render_template('register.html')
         
         # Validate security fields
@@ -214,13 +219,13 @@ def register():
         
         # Create user
         user = User(
-            username=username,
-            email=email,
-            password=password,
-            user_type=user_type,
-            security_question=security_question,
-            security_answer=security_answer.lower().strip()
-        )
+    username=username,
+    email=email,
+    password=generate_password_hash(password),
+    user_type=user_type,
+    security_question=security_question,
+    security_answer=security_answer.lower().strip()
+)
         db.session.add(user)
         db.session.commit()
         
@@ -228,11 +233,17 @@ def register():
         if user_type == 'restaurant_admin':
             restaurant_name = request.form.get('restaurant_name')
             address = request.form.get('address')
-            phone = request.form.get('phone')
+            
+            # Get phone number correctly
+            phone_prefix = request.form.get('phone_prefix', '+92')
+            phone_number = request.form.get('phone_number')
+            full_phone = f"{phone_prefix}{phone_number}" if phone_number else ''
+            
             cuisine = request.form.get('cuisine')
             opening_hours = request.form.get('opening_hours', '')
             
-            if not restaurant_name or not address or not phone:
+            # Validate
+            if not restaurant_name or not address or not phone_number:
                 flash('❌ Restaurant Name, Address, and Phone are required!', 'error')
                 db.session.delete(user)
                 db.session.commit()
@@ -244,16 +255,18 @@ def register():
                 db.session.commit()
                 return render_template('register.html')
             
+            # Check restaurant name
             if Restaurant.query.filter_by(name=restaurant_name).first():
                 flash('❌ Restaurant name already exists!', 'error')
                 db.session.delete(user)
                 db.session.commit()
                 return render_template('register.html')
             
+            # Create restaurant
             restaurant = Restaurant(
                 name=restaurant_name,
                 address=address,
-                phone=phone,
+                phone=full_phone,
                 cuisine=cuisine,
                 opening_hours=opening_hours,
                 admin_id=user.id
@@ -581,7 +594,7 @@ def reset_password():
         
         user = User.query.filter_by(username=username).first()
         if user:
-            user.password = password
+            user.password = generate_password_hash(password)
             db.session.commit()
             flash('✅ Password reset successfully! Please login.', 'success')
             return redirect(url_for('login'))

@@ -204,6 +204,41 @@
                 font-size: 40px;
             }
         }
+        .phone-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.phone-prefix {
+    width: auto;
+    min-width: 140px;
+    flex: 2;
+}
+
+.phone-number {
+    flex: 3;
+    min-width: 180px;
+}
+
+/* Mobile fix for phone fields */
+@media (max-width: 768px) {
+    .phone-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .phone-prefix {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .phone-number {
+        width: 100%;
+        min-width: unset;
+    }
+}
     </style>
 </head>
 <body>
@@ -221,6 +256,7 @@
         {% endwith %}
         
         <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="input-group">
                 <label>Username <span class="required">*</span></label>
                 <input type="text" name="username" placeholder="Choose a username" required>
