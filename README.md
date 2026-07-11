@@ -71,15 +71,19 @@ Version Control:  Git / GitHub
 
 2. Create and activate virtual environment
    Windows:   python -m venv venv && venv\Scripts\activate
+   
    Mac/Linux: python3 -m venv venv && source venv/bin/activate
 
-3. Install dependencies
+4. Install dependencies
+   
    pip install -r requirements.txt
 
-4. Run the application
+6. Run the application
+   
    python app.py
 
-5. Open in browser
+8. Open in browser
+   
    http://localhost:5000
 
 
