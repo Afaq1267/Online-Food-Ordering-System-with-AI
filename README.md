@@ -50,7 +50,7 @@ Mobile Responsive:
 🛠️ Technologies Used
 --------------------
 
-Backend:          Python 3.11+, Flask 2.3.0, Flask-SQLAlchemy 3.0.5
+Backend:          Python 3.11+, Flask 2.3.0, Flask-SQLAlchemy 3.0.5 - 
                   Flask-Login 0.6.2, Flask-WTF 1.1.1
 
 Database:         SQLite 3.x
